@@ -16,7 +16,7 @@ export const Main = () => {
 
 		setTimeout(() => {
 			coin.style.fontSize = '24px';
-			coin.style.top = '40%';
+			coin.style.top = '20%';
 			coin.style.opacity = '0';
 		}, 10);
 
@@ -50,7 +50,7 @@ export const Main = () => {
 				</p>
 			</div>
 			<div className='main__coin' onClick={handleClick}>
-				<img draggable='false' src='./durov1.png' alt='' />
+				{/* <img draggable='false' src='./durov1.png' alt='' /> */}
 			</div>
 		</main>
 	);

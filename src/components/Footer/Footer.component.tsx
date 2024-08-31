@@ -4,7 +4,13 @@ export const Footer = () => {
 	return (
 		<footer className='footer'>
 			<div className='footer__content'>
-				<p className='footer__text'>Comming soon...</p>
+				<a
+					className='footer_link'
+					target='_blank'
+					href='https://t.me/taptapDurov'
+				>
+					<img src='./tg-logo.webp' alt='' />
+				</a>
 			</div>
 		</footer>
 	);

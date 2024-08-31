@@ -1,6 +1,6 @@
 .footer__content {
 	padding: 22px 44px;
-	background-color: aqua;
+	border: 2px solid aqua;
 	border-radius: 8px;
 }
 
@@ -8,4 +8,16 @@
 	font-size: 20px;
 	color: var(--bg-color);
 	font-weight: 500;
+}
+
+.footer_link {
+	display: block;
+}
+
+.footer_link img {
+	transition: all 0.3s ease-in-out;
+}
+
+.footer_link:hover img {
+	transform: scale(1.2);
 }
