@@ -1,0 +1,11 @@
+.footer__content {
+	padding: 22px 44px;
+	background-color: aqua;
+	border-radius: 8px;
+}
+
+.footer__text {
+	font-size: 20px;
+	color: var(--bg-color);
+	font-weight: 500;
+}
