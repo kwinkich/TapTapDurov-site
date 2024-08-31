@@ -6,7 +6,7 @@
 
 .main__coin {
 	position: relative;
-	background-image: url('./durov1.png');
+	background-image: url('../durov1.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	width: 240px;
