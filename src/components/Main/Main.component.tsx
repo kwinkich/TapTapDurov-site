@@ -42,34 +42,41 @@ export const Main = () => {
 		fetchData();
 	}, []);
 
-	const handleClick = (event: React.MouseEvent) => {
-		setTap((prev) => prev + 10);
-		setFreeDurov((prev) => prev + 10);
+	const handleTouchStart = (event: React.TouchEvent) => {
+		const numberOfTouches = event.touches.length;
+		const increment = numberOfTouches * 10;
+
+		setTap((prev) => prev + increment);
+		setFreeDurov((prev) => prev + increment);
 
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 		}
+
 		timeoutRef.current = setTimeout(() => {
-			updateTimeOnServer(tap + 10);
+			updateTimeOnServer(tap + increment);
 		}, 2000);
 
-		const value = document.createElement('div');
-		value.style.color = '#229ED9';
-		value.className = 'value';
-		value.innerHTML = `+10ms`;
-		value.style.top = event.clientY - 30 + 'px';
-		value.style.left = event.clientX - 15 + 'px';
-		document.body.appendChild(value);
+		Array.from(event.touches).forEach((touch) => {
+			const value = document.createElement('div');
+			value.style.color = '#229ED9';
+			value.className = 'value';
+			value.innerHTML = `+10ms`;
+			value.style.position = 'absolute';
+			value.style.top = touch.clientY - 30 + 'px';
+			value.style.left = touch.clientX - 15 + 'px';
+			document.body.appendChild(value);
 
-		setTimeout(() => {
-			value.style.fontSize = '24px';
-			value.style.top = '20%';
-			value.style.opacity = '0';
-		}, 10);
+			setTimeout(() => {
+				value.style.fontSize = '24px';
+				value.style.top = '20%';
+				value.style.opacity = '0';
+			}, 10);
 
-		setTimeout(() => {
-			value.remove();
-		}, 1000);
+			setTimeout(() => {
+				value.remove();
+			}, 1000);
+		});
 
 		if (btnRef.current) {
 			btnRef.current.classList.remove('animate');
@@ -86,7 +93,11 @@ export const Main = () => {
 					раньше
 				</p>
 			</div>
-			<div ref={btnRef} className='main__btn' onClick={handleClick}></div>
+			<div
+				ref={btnRef}
+				className='main__btn'
+				onTouchStart={handleTouchStart}
+			></div>
 		</main>
 	);
 };
