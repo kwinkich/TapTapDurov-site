@@ -42,10 +42,7 @@ export const Main = () => {
 		fetchData();
 	}, []);
 
-	const handleTouchStart = (event: React.TouchEvent) => {
-		const numberOfTouches = event.touches.length;
-		const increment = numberOfTouches * 10;
-
+	const handleTap = (increment: number, x: number, y: number) => {
 		setTap((prev) => prev + increment);
 		setFreeDurov((prev) => prev + increment);
 
@@ -57,32 +54,40 @@ export const Main = () => {
 			updateTimeOnServer(tap + increment);
 		}, 2000);
 
-		Array.from(event.touches).forEach((touch) => {
-			const value = document.createElement('div');
-			value.style.color = '#229ED9';
-			value.className = 'value';
-			value.innerHTML = `+10ms`;
-			value.style.position = 'absolute';
-			value.style.top = touch.clientY - 30 + 'px';
-			value.style.left = touch.clientX - 15 + 'px';
-			document.body.appendChild(value);
+		const value = document.createElement('div');
+		value.style.color = '#229ED9';
+		value.className = 'value';
+		value.innerHTML = `+${increment}ms`;
+		value.style.position = 'absolute';
+		value.style.top = y - 30 + 'px';
+		value.style.left = x - 15 + 'px';
+		document.body.appendChild(value);
 
-			setTimeout(() => {
-				value.style.fontSize = '24px';
-				value.style.top = '20%';
-				value.style.opacity = '0';
-			}, 10);
+		setTimeout(() => {
+			value.style.fontSize = '24px';
+			value.style.top = '20%';
+			value.style.opacity = '0';
+		}, 10);
 
-			setTimeout(() => {
-				value.remove();
-			}, 1000);
-		});
+		setTimeout(() => {
+			value.remove();
+		}, 1000);
 
 		if (btnRef.current) {
 			btnRef.current.classList.remove('animate');
 			void btnRef.current.offsetWidth;
 			btnRef.current.classList.add('animate');
 		}
+	};
+
+	const handleClick = (event: React.MouseEvent) => {
+		handleTap(10, event.clientX, event.clientY);
+	};
+
+	const handleTouchStart = (event: React.TouchEvent) => {
+		Array.from(event.touches).forEach((touch) => {
+			handleTap(10, touch.clientX, touch.clientY);
+		});
 	};
 
 	return (
@@ -96,6 +101,7 @@ export const Main = () => {
 			<div
 				ref={btnRef}
 				className='main__btn'
+				onClick={handleClick}
 				onTouchStart={handleTouchStart}
 			></div>
 		</main>
