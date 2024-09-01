@@ -7,7 +7,7 @@ export const Main = () => {
 	const [freeDurov, setFreeDurov] = useState<number>(0);
 	const [tap, setTap] = useState<number>(0);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const coinRef = useRef<HTMLDivElement | null>(null);
+	const btnRef = useRef<HTMLDivElement | null>(null);
 
 	const fetchData = async () => {
 		try {
@@ -51,28 +51,28 @@ export const Main = () => {
 			updateTimeOnServer(tap + 10);
 		}, 2000);
 
-		const coin = document.createElement('div');
-		coin.style.color = '#229ED9';
-		coin.className = 'coin';
-		coin.innerHTML = `+10ms`;
-		coin.style.top = event.clientY - 30 + 'px';
-		coin.style.left = event.clientX - 15 + 'px';
-		document.body.appendChild(coin);
+		const value = document.createElement('div');
+		value.style.color = '#229ED9';
+		value.className = 'value';
+		value.innerHTML = `+10ms`;
+		value.style.top = event.clientY - 30 + 'px';
+		value.style.left = event.clientX - 15 + 'px';
+		document.body.appendChild(value);
 
 		setTimeout(() => {
-			coin.style.fontSize = '24px';
-			coin.style.top = '20%';
-			coin.style.opacity = '0';
+			value.style.fontSize = '24px';
+			value.style.top = '20%';
+			value.style.opacity = '0';
 		}, 10);
 
 		setTimeout(() => {
-			coin.remove();
+			value.remove();
 		}, 1000);
 
-		if (coinRef.current) {
-			coinRef.current.classList.remove('animate');
-			void coinRef.current.offsetWidth;
-			coinRef.current.classList.add('animate');
+		if (btnRef.current) {
+			btnRef.current.classList.remove('animate');
+			void btnRef.current.offsetWidth;
+			btnRef.current.classList.add('animate');
 		}
 	};
 
@@ -84,7 +84,7 @@ export const Main = () => {
 					раньше
 				</p>
 			</div>
-			<div ref={coinRef} className='main__coin' onClick={handleClick}></div>
+			<div ref={btnRef} className='main__btn' onClick={handleClick}></div>
 		</main>
 	);
 };

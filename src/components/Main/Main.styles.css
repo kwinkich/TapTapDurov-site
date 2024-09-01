@@ -4,7 +4,7 @@
 	align-items: center;
 }
 
-.main__coin {
+.main__btn {
 	position: relative;
 	background-image: url('../durov1.png');
 	background-repeat: no-repeat;
@@ -15,7 +15,7 @@
 	border: 2px solid var(--accent-second-color);
 }
 
-.main__coin::before {
+.main__btn::before {
 	position: absolute;
 	content: '';
 	top: 50%;
@@ -28,16 +28,16 @@
 	border-radius: 50%;
 }
 
-.main__coin.animate {
-	animation: coinAnim 0.7s ease-in-out;
+.main__btn.animate {
+	animation: btnAnim 0.7s ease-in-out;
 }
 
-.main__coin.animate::before {
+.main__btn.animate::before {
 	z-index: -2;
 	animation: widthAnim 0.7s ease-in-out;
 }
 
-@keyframes coinAnim {
+@keyframes btnAnim {
 	0% {
 		transform: scale(1);
 	}
@@ -82,7 +82,7 @@
 	color: var(--accent-color);
 }
 
-.coin {
+.value {
 	position: absolute;
 	pointer-events: none;
 	font-weight: 600;
