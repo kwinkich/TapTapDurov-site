@@ -7,6 +7,7 @@ export const Main = () => {
 	const [freeDurov, setFreeDurov] = useState<number>(0);
 	const [tap, setTap] = useState<number>(0);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const coinRef = useRef<HTMLDivElement | null>(null);
 
 	const fetchData = async () => {
 		try {
@@ -67,6 +68,13 @@ export const Main = () => {
 		setTimeout(() => {
 			coin.remove();
 		}, 1000);
+
+		if (coinRef.current) {
+			// Сначала удаляем класс анимации, затем добавляем его заново
+			coinRef.current.classList.remove('animate');
+			void coinRef.current.offsetWidth; // Trigger reflow to restart animation
+			coinRef.current.classList.add('animate');
+		}
 	};
 
 	return (
@@ -77,7 +85,7 @@ export const Main = () => {
 					раньше
 				</p>
 			</div>
-			<div className='main__coin' onClick={handleClick}></div>
+			<div ref={coinRef} className='main__coin' onClick={handleClick}></div>
 		</main>
 	);
 };

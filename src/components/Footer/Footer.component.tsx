@@ -7,7 +7,7 @@ export const Footer = () => {
 				<a
 					className='footer_link'
 					target='_blank'
-					href='https://t.me/taptapDurov'
+					href='https://t.me/TapTapDurov'
 				>
 					<img src='./tg-logo.webp' alt='' />
 				</a>
