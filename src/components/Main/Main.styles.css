@@ -29,12 +29,12 @@
 }
 
 .main__coin.animate {
-	animation: coinAnim 0.5s ease-in-out;
+	animation: coinAnim 0.7s ease-in-out;
 }
 
 .main__coin.animate::before {
 	z-index: -2;
-	animation: widthAnim 0.6s ease-in-out;
+	animation: widthAnim 0.7s ease-in-out;
 }
 
 @keyframes coinAnim {

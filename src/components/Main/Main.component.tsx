@@ -70,9 +70,8 @@ export const Main = () => {
 		}, 1000);
 
 		if (coinRef.current) {
-			// Сначала удаляем класс анимации, затем добавляем его заново
 			coinRef.current.classList.remove('animate');
-			void coinRef.current.offsetWidth; // Trigger reflow to restart animation
+			void coinRef.current.offsetWidth;
 			coinRef.current.classList.add('animate');
 		}
 	};
