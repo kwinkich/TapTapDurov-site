@@ -95,7 +95,9 @@ textarea {
 
 
 :root {
-  --bg-color: #252525;
+  --accent-color: #2AABEE;
+  --accent-second-color: #229ED9;
+  --bg-color: #000000;
   --white-color: #f2f2f2;
 }
 
@@ -106,9 +108,11 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  overflow: hidden;
 }
 
 .container {
+  position: relative;
   padding-top: 24px;
   display: flex;
   flex-direction: column;
@@ -117,4 +121,31 @@ body {
   min-height: 90vh;
   max-width: 420px;
   margin: 0 auto;
+}
+
+.container::before {
+  position: absolute;
+  content: '';
+  top: -15%;
+  left: -40%;
+  width: 200px;
+  height: 200px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.7;
+}
+
+.container::after {
+  position: absolute;
+  content: '';
+  bottom: -5%;
+  right: -30%;
+  width: 200px;
+  height: 200px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.7;
+
 }

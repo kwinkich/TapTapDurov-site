@@ -1,13 +1,57 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import { toCorrectTime } from '../../utils/utils';
 import './Main.styles.css';
 
 export const Main = () => {
 	const [freeDurov, setFreeDurov] = useState<number>(0);
+	const [tap, setTap] = useState<number>(0);
+	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	const fetchData = async () => {
+		try {
+			const response = await axios.get('http://localhost:5050/api/get_time');
+			setFreeDurov(response.data.time);
+		} catch (error) {
+			console.error('Ошибка при загрузке данных:', error);
+		}
+	};
+
+	const updateTimeOnServer = async (increment: number) => {
+		try {
+			const response = await axios.post(
+				'http://localhost:5050/api/update_time',
+				{
+					time: increment,
+				}
+			);
+
+			if (response.status === 200) {
+				setTap(0);
+				setFreeDurov(response.data.time);
+			}
+		} catch (error) {
+			console.error('Ошибка при обновлении времени на сервере:', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	const handleClick = (event: React.MouseEvent) => {
+		setTap((prev) => prev + 10);
 		setFreeDurov((prev) => prev + 10);
+
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+		}
+		timeoutRef.current = setTimeout(() => {
+			updateTimeOnServer(tap + 10);
+		}, 2000);
+
 		const coin = document.createElement('div');
-		coin.style.color = '#ffffff';
+		coin.style.color = '#229ED9';
 		coin.className = 'coin';
 		coin.innerHTML = `+10ms`;
 		coin.style.top = event.clientY - 30 + 'px';
@@ -25,33 +69,15 @@ export const Main = () => {
 		}, 1000);
 	};
 
-	const toCorrectTime = () => {
-		let milliseconds = freeDurov;
-
-		const hours = Math.floor(milliseconds / 3_600_000);
-		milliseconds %= 3_600_000;
-
-		const minutes = Math.floor(milliseconds / 60_000);
-		milliseconds %= 60_000;
-
-		const seconds = Math.floor(milliseconds / 1000);
-		milliseconds %= 1000;
-
-		return `${hours > 0 ? `${hours} часов` : ''} ${
-			minutes > 0 ? `${minutes} минут` : ''
-		}  ${seconds > 0 ? `${seconds} секунд` : ''} ${milliseconds} миллисекунд`;
-	};
-
 	return (
 		<main className='main'>
 			<div className='main__info'>
 				<p>
-					Дуров выйдет на: <br /> <span>{toCorrectTime()}</span> <br /> раньше
+					Дуров выйдет на: <br /> <span>{toCorrectTime(freeDurov)}</span> <br />{' '}
+					раньше
 				</p>
 			</div>
-			<div className='main__coin' onClick={handleClick}>
-				{/* <img draggable='false' src='./durov1.png' alt='' /> */}
-			</div>
+			<div className='main__coin' onClick={handleClick}></div>
 		</main>
 	);
 };
