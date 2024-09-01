@@ -8,6 +8,7 @@ export const Main = () => {
 	const [tap, setTap] = useState<number>(0);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const btnRef = useRef<HTMLDivElement | null>(null);
+	const touchStartedRef = useRef<boolean>(false);
 
 	const fetchData = async () => {
 		try {
@@ -81,10 +82,16 @@ export const Main = () => {
 	};
 
 	const handleClick = (event: React.MouseEvent) => {
+		if (touchStartedRef.current) {
+			touchStartedRef.current = false;
+			return;
+		}
 		handleTap(10, event.clientX, event.clientY);
 	};
 
 	const handleTouchStart = (event: React.TouchEvent) => {
+		event.preventDefault();
+		touchStartedRef.current = true;
 		Array.from(event.touches).forEach((touch) => {
 			handleTap(10, touch.clientX, touch.clientY);
 		});
