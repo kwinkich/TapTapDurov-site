@@ -11,7 +11,9 @@ export const Main = () => {
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get('http://localhost:5050/api/get_time');
+			const response = await axios.get(
+				'https://ss.taptapdurov.fun/api/get_time'
+			);
 			setFreeDurov(response.data.time);
 		} catch (error) {
 			console.error('Ошибка при загрузке данных:', error);
@@ -21,7 +23,7 @@ export const Main = () => {
 	const updateTimeOnServer = async (increment: number) => {
 		try {
 			const response = await axios.post(
-				'http://localhost:5050/api/update_time',
+				'https://ss.taptapdurov.fun/api/update_time',
 				{
 					time: increment,
 				}
